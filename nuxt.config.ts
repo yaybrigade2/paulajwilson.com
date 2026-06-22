@@ -8,6 +8,10 @@ export default defineNuxtConfig({
 			bodyAttrs: {
 			},
 			link: [
+				{ rel: 'stylesheet', href: 'https://use.typekit.net/jno8hyq.css' },
+				{ rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+				{ rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+				{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400;1,600&display=swap' },
 				// { rel: 'icon', type: 'image/png', href: '/favicon/favicon-48x48.png', sizes: '48x48' },
 				// { rel: 'icon', type: 'image/svg+xml', href: '/favicon/favicon.svg' },
 				// { rel: 'shortcut icon', href: '/favicon/favicon.ico' },

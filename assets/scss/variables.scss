@@ -6,7 +6,7 @@
 
 \*----------------------------------------------*/
 
-@use "./_components.scss" as c;
+@use "./_components.scss"as *;
 
 /*
  *
@@ -33,22 +33,22 @@
 	--size-800: 3.583rem;
 	--size-900: 4.299rem;
 	
-	@media screen and (min-width: c.$x-small) {
+	@media screen and (min-width: $x-small) {
 		font-size: 1.05rem;
 	}
-	@media screen and (min-width: c.$small) {
+	@media screen and (min-width: $small) {
 		font-size: 1.1rem;
 	}
-	@media screen and (min-width: c.$medium) {
+	@media screen and (min-width: $medium) {
 		font-size: 1.15rem;
 	}
-	@media screen and (min-width: c.$large) {
+	@media screen and (min-width: $large) {
 		font-size: 1.2rem;
 	}
-	@media screen and (min-width: c.$x-large) {
+	@media screen and (min-width: $x-large) {
 		font-size: 1.25rem;
 	}	
-	@media screen and (min-width: c.$xx-large) {
+	@media screen and (min-width: $xx-large) {
 		font-size: 1.3rem;
 	}
 }
@@ -56,11 +56,22 @@
 
 /*
  *
+ * ANCHOR Fonts 
+------------------------------------------------*/
+:root {
+	--font-home: "black-pack-vf", sans-serif;
+	--font-serif: "calvino", Georgia, serif;
+	--font-fancy: "fuuld", sans-serif;
+	--font-family-mono: "IBM Plex Mono", monospace;
+}
+
+/*
+ *
  * ANCHOR Colors 
 ------------------------------------------------*/
 :root {
 	// Raw Colors
-
+	--c: #000000;
 	// Color Contexts
 
 }
@@ -76,15 +87,15 @@
 	--margin-section-vertical: var(--size-600);
 	--column-gap: var(--size-500);
 
-	@media screen and (min-width: c.$xx-small) {
+	@media screen and (min-width: $xx-small) {
 		--margin-wrapper-outer: var(--size-100);
 	}
-	@media screen and (min-width: c.$medium) {
+	@media screen and (min-width: $medium) {
 		--margin-wrapper-outer: var(--size-500);
 		--box-padding: var(--size-090);
 		--margin-section-vertical: var(--size-700);
 	}
-	@media screen and (min-width: c.$large) {
+	@media screen and (min-width: $large) {
 		--margin-wrapper-outer: var(--size-700);
 		--box-padding: var(--size-100);
 		--margin-section-vertical: var(--size-800);
