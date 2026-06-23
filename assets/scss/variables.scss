@@ -65,15 +65,21 @@
 	--font-family-mono: "IBM Plex Mono", monospace;
 }
 
+
 /*
  *
  * ANCHOR Colors 
 ------------------------------------------------*/
 :root {
-	// Raw Colors
-	--c: #000000;
-	// Color Contexts
-
+	// colors
+	--color-slate: #4D4F60;
+	--color-sand: #EFD9CA;
+	--color-red: #DA3721;
+	--color-pink: #EC81BA;
+	--color-pink-dark: #DA6390;
+	
+	// gradients
+	--gradient-page-border: linear-gradient(to bottom, var(--color-pink) 0%, var(--color-slate) 100%);
 }
 
 
@@ -108,5 +114,5 @@
  * ANCHOR Max-Widths
 ------------------------------------------------*/
 :root {
-	--wrapper-max-width: 80rem;
+	--wrapper-max-width: 70rem;
 }
