@@ -2,7 +2,7 @@
     VARIABLES
 	=========
 
-	@package yaybrigade
+	@package paulawilson
 
 \*----------------------------------------------*/
 
@@ -88,24 +88,7 @@
  * ANCHOR Margins & Padding
 ------------------------------------------------*/
 :root {
-	--margin-wrapper-outer: var(--size-070);
-	--box-padding: var(--size-070);
-	--margin-section-vertical: var(--size-600);
-	--column-gap: var(--size-500);
-
-	@media screen and (min-width: $xx-small) {
-		--margin-wrapper-outer: var(--size-100);
-	}
-	@media screen and (min-width: $medium) {
-		--margin-wrapper-outer: var(--size-500);
-		--box-padding: var(--size-090);
-		--margin-section-vertical: var(--size-700);
-	}
-	@media screen and (min-width: $large) {
-		--margin-wrapper-outer: var(--size-700);
-		--box-padding: var(--size-100);
-		--margin-section-vertical: var(--size-800);
-	}
+	
 }
 
 
@@ -114,5 +97,5 @@
  * ANCHOR Max-Widths
 ------------------------------------------------*/
 :root {
-	--wrapper-max-width: 70rem;
+	--wrapper-max-width: #{$wrapper-max-width};
 }

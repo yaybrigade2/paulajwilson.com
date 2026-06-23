@@ -2,7 +2,7 @@
     GLOBAL
 	======
 
-	@package yaybrigade
+	@package paulawilson
 
 \*----------------------------------------------*/
 
@@ -15,10 +15,10 @@
 ------------------------------------------------*/
 :root {
 	--nav-toggle-height: var(--size-600);
-	--site-border-width: var(--size-050);
+	--site-border-width: #{$site-border-width-1};
 
 	@media screen and (min-width: $small) {
-		--site-border-width: var(--size-080);
+		--site-border-width: #{$site-border-width-2};
 	}	
 }
 .page-home {
@@ -56,19 +56,58 @@
 	padding: var(--size-100);
 	margin-top: calc(-1 * var(--nav-toggle-height) / 2);
 	transition: background-color 0.1s ease-in-out;
+	font-family: var(--font-serif);
+	text-transform: uppercase;
 	
-	& > ul {
-		max-height: 0;
-		overflow: hidden;
-		transition: max-height 0.3s ease-in-out, padding-top 0.3s ease-in-out;
+	&__inner {
+		display: grid;
+		grid-template-rows: 0fr;
+		transition: grid-template-rows 0.3s ease-in-out, padding-top 0.3s ease-in-out;
+
+		.route-change-in-progress & {
+			transition: none;
+		}
+
+		& > ul { /* grid child */
+			overflow: hidden;
+		}
 	}
 	&--open {
 		background-color: var(--color-pink);
 		transition: background-color 0.2s ease-in-out 0.1s;
 
-		& > ul {
-			max-height: 100vh;
+		.site-nav__inner {
+			grid-template-rows: 1fr;
+
+			.page-secondary & {
+				padding-top: var(--size-100);
+			}
 		}
+	}
+
+	&__main-list {
+		.logo--nav-open & {
+			margin-bottom: var(--size-100);
+		}
+
+		& > li {
+			margin-bottom: var(--size-100);
+		}
+	}
+	&__main-link {
+		display: inline-block;
+		padding: var(--size-060) var(--size-090);
+		color: var(--color-red);
+		margin-bottom: var(--size-050);
+		background-color: var(--color-sand);
+	}
+	&__sub-link {
+		display: inline-block;
+		padding: var(--size-040) var(--size-090);
+		color: var(--color-slate);
+		font-style: italic;
+		margin-bottom: 2px;
+		background-color: var(--color-sand);
 	}
 }
 
@@ -81,15 +120,21 @@
 		padding: 0 var(--size-100);
 		font-variation-settings: "STRS" 50, "wdth" 50, "wght" 100;
 		line-height: 1;
-		display: block;		
+		display: block;
 		
 		.page-home & {
 			font-size: 40vw;
+
+			a {
+				cursor: default; /* disable link hover on homepage */
+			}
 		}
 		.page-secondary & {
-			font-size: 20vw;
-			width: 56vw;
-			margin-left: auto;
+			font-size: var(--size-700);
+  			width: 3em; /* based on the width of the text "Wilson" for right alignment */	
+  			margin-left: auto;
+			position: relative;
+			z-index: 1;
 		}
 
 		&--paula {
@@ -97,11 +142,11 @@
 		}
 		&--wilson {
 			position: relative;
-			top: -.15em;
+			top: -.1em;
 			transition: top 0.3s ease-in-out;
 			
 			.logo--nav-open & {
-				top: .05em;
+				top: 0;
 			}
 		}
 	}
@@ -115,7 +160,7 @@
 	position: relative;
 
 	.page-secondary & {
-		margin-top: -1.5em;
+		margin-top: -1.25em;
 		margin-bottom: -3em;
 		transition: margin-bottom 0.3s ease-in-out;
 	}
@@ -126,12 +171,18 @@
 	&:before { /* horizontal line */
 		content: "";
 		display: block;
-		height: 1px;
+		height: 1.5px;
 		background-color: var(--color-pink);
 		position: absolute;
-		top: 50%;
+		top: calc(50% - .75px);
 		left: calc(-1 * var(--site-border-width));
 		right: calc(-1 * var(--site-border-width));
+		transition: background-color 0.2s ease-in-out;
+
+		@media screen and (min-width: calc(#{$wrapper-max-width} + (2 * #{$site-border-width-2}))) {
+			left: calc(-1 * ( (100vw - var(--wrapper-max-width)) / 2));
+			right: calc(-1 * ( (100vw - var(--wrapper-max-width)) / 2));
+		}
 	}
 	
 	&__button {

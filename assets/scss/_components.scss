@@ -2,7 +2,7 @@
     COMPONENTS
 	==========
 
-	@package yaybrigade
+	@package paulawilson
 
 \*----------------------------------------------*/
 
@@ -24,3 +24,11 @@ $xx-large: 94rem;
 /* Responsive Breakpoints */
 $header-desktop: 35rem;
 $footer-desktop: 45rem;
+
+
+/* Max Widths */
+$wrapper-max-width: 1200px; /* keep px */
+
+/* Site Border Widths */
+$site-border-width-1: 8px; /* keep px */
+$site-border-width-2: 12px; /* keep px */

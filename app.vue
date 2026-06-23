@@ -6,12 +6,37 @@ const route = useRoute();
 // ****
 // ANCHOR Page Variables
 const showNav = ref(false);
+let routeChangeClassTimer;
 
 
 // ****
 // ANCHOR hide nav on route change
 watch(() => route.path, () => {
 	showNav.value = false;
+
+	if (import.meta.client) {
+		document.body.classList.add('route-change-in-progress');
+
+		if (routeChangeClassTimer) {
+			clearTimeout(routeChangeClassTimer);
+		}
+
+		routeChangeClassTimer = setTimeout(() => {
+			document.body.classList.remove('route-change-in-progress');
+			routeChangeClassTimer = null;
+		}, 1000);
+	}
+});
+
+onBeforeUnmount(() => {
+	if (routeChangeClassTimer) {
+		clearTimeout(routeChangeClassTimer);
+		routeChangeClassTimer = null;
+	}
+
+	if (import.meta.client) {
+		document.body.classList.remove('route-change');
+	}
 });
 
 
@@ -99,41 +124,9 @@ const toggleSearch = () => {
 				<nav class="site-nav"
 					:class="{ 'site-nav--open': showNav }"
 				>
-					<ul>
-						<li>
-							<NuxtLink to="/art">Art</NuxtLink>
-
-							<ul>
-								<li>
-									<NuxtLink to="/art">Introduction</NuxtLink>
-								</li>
-								<li>
-									<NuxtLink to="/exhibitions">Exhitions</NuxtLink>
-								</li>
-								<li>
-									<NuxtLink to="/paintings">Paintings</NuxtLink>
-								</li>
-							</ul>
-						</li>
-						<li>
-							<NuxtLink to="/current">Current</NuxtLink>
-						</li>
-						<li>
-							<NuxtLink to="/paulas-world">Paula's World</NuxtLink>
-
-							<ul>
-								<li>
-									<NuxtLink to="/paulas-world">Introduction</NuxtLink>
-								</li>
-								<li>
-									<NuxtLink to="/carrizozo">Carrizozo</NuxtLink>
-								</li>
-								<li>
-									<NuxtLink to="/bio">Bio</NuxtLink>
-								</li>
-							</ul>
-						</li>
-					</ul>
+					<div class="site-nav__inner">
+						<Navigation />
+					</div>
 				</nav>
 				<span class="logo__name logo__name--wilson">
 					<NuxtLink to="/">
