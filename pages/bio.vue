@@ -1,5 +1,4 @@
 <script setup>
-
 	useSeoMeta({
 		// title: '',
 		// ogTitle: '',
@@ -16,13 +15,9 @@
 
 <template>
 
-	<!-- Home -->
+	<div class="">
+		Hi
+	</div>
 
-	<!-- test typefaces -->
-
-	<!-- <p style="font-family: var(--font-home);">This is the home font</p>
-	<p style="font-family: var(--font-serif);">This is the serif font</p>
-	<p style="font-family: var(--font-fancy);">This is the fancy font</p>
-	<p style="font-family: var(--font-family-mono);">This is the mono font</p> -->
 
 </template>
