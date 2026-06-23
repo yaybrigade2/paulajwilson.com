@@ -106,7 +106,7 @@ const toggleSearch = () => {
 				:class="{ 'site-nav--nav-open': showNav }"
 			>
 				<span class="site-nav__logo-name  site-nav__logo-name--paula">
-					<NuxtLink to="/">
+					<NuxtLink to="/" tabindex="-1">
 						Paula
 					</NuxtLink>
 				</span>

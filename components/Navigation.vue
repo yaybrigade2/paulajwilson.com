@@ -1,7 +1,54 @@
 <script setup>
 
+const route = useRoute();
+
 const artOpen = ref(false);
 const paulasWorldOpen = ref(false);
+
+const pagesWithSubmenus = {
+	art: [
+		"art",
+		"exhibitions",
+		"paintings",
+		"sculptures",
+		"films",
+		"editions",
+	],
+	current: ["current"],
+	paulasWorld: [
+		"paulas-world",
+		"carrizozo",
+		"bio",
+		"momazozo",
+		"the-book",
+		"cv",
+		"contact",
+	],
+}
+
+function isActive(path) {
+	const normalizedPath = route.path.replace(/^\//, "").replace(/\/$/, "");
+	return (pagesWithSubmenus[path] || []).includes(normalizedPath);
+}
+
+// watch for route changes to close submenus
+watch(() => route.path, () => {
+	console.log('route changed, closing submenus');
+	artOpen.value = false;
+	paulasWorldOpen.value = false;
+});
+
+// watch each submenu to close the other when one is opened
+watch(artOpen, (newVal) => {
+	if (newVal) {
+		paulasWorldOpen.value = false;
+	}
+});
+watch(paulasWorldOpen, (newVal) => {
+	if (newVal) {
+		artOpen.value = false;
+	}
+});
 
 </script>
 
@@ -12,7 +59,9 @@ const paulasWorldOpen = ref(false);
 				<a
 					:href="href"
 					class="site-nav__main-link"
-					:class="{ 'site-nav__main-link--active': artOpen }"
+					:class="{ 
+						'site-nav__main-link--active': artOpen || isActive('art'),
+					 }"
 					:aria-expanded="String(artOpen)"
 					aria-controls="nav-sub-art"
 					@click.prevent="artOpen = !artOpen"
@@ -29,7 +78,7 @@ const paulasWorldOpen = ref(false);
 					<NuxtLink to="/art" class="site-nav__sub-link">Introduction</NuxtLink>
 				</li>
 				<li>
-					<NuxtLink to="/exhibitions" class="site-nav__sub-link">Exhitions</NuxtLink>
+					<NuxtLink to="/exhibitions" class="site-nav__sub-link">Exhibitions</NuxtLink>
 				</li>
 				<li>
 					<NuxtLink to="/paintings" class="site-nav__sub-link">Paintings</NuxtLink>
@@ -46,14 +95,16 @@ const paulasWorldOpen = ref(false);
 			</ul>
 		</li>
 		<li>
-			<NuxtLink to="/current" class="site-nav__main-link">Current</NuxtLink>
+			<NuxtLink to="/current" class="site-nav__main-link"
+				:class="{ 'site-nav__main-link--active': isActive('current') }"
+			>Current</NuxtLink>
 		</li>
 		<li>
 			<NuxtLink to="/paulas-world" custom v-slot="{ href }">
 				<a
 					:href="href"
 					class="site-nav__main-link"
-					:class="{ 'site-nav__main-link--active': paulasWorldOpen }"
+					:class="{ 'site-nav__main-link--active': paulasWorldOpen || isActive('paulasWorld') }"
 					:aria-expanded="String(paulasWorldOpen)"
 					aria-controls="nav-sub-paulas-world"
 					@click.prevent="paulasWorldOpen = !paulasWorldOpen"

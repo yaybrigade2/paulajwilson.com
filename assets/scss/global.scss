@@ -44,7 +44,6 @@
 		max-width: var(--wrapper-max-width);
 	}
 }
-
 .site-nav {
 
 	a {
@@ -81,10 +80,21 @@
 			transition: top 0.3s ease-in-out;
 			
 			@media screen and (max-width: $nav-desktop) { // max-width!
-				
+
 				.site-nav--nav-open & {
 					top: 0;
 				}
+			}
+		}
+
+		a {
+
+			&:focus {
+				outline: 0;
+			}
+			&:hover, &:focus-visible {
+				outline: 2px solid var(--color-pink);
+				outline-offset: 3px;
 			}
 		}
 	}	
@@ -97,6 +107,7 @@
 
 		@media screen and (min-width: $nav-desktop) {
 			position: relative;
+			z-index: 10;
 		}
 
 		@media screen and (max-width: $nav-desktop) { // max-width!
@@ -135,7 +146,6 @@
 			}
 		}
 	}
-
 	&__main-list {
 
 		@media screen and (min-width: $nav-desktop) {
@@ -160,7 +170,7 @@
 			margin-bottom: var(--size-100);
 		}
 	}
-	&__main-link {
+	&__main-link { /* <a> */
 		display: inline-block;
 		padding: var(--size-060) var(--size-090);
 		color: var(--color-red);
@@ -176,6 +186,18 @@
 			}
 		}
 
+		&:focus {
+			outline: 0;
+		}		
+		&:hover, &:focus-visible {
+			outline: 2px solid var(--color-red);
+			outline-offset: -2px;
+
+			@media screen and (min-width: $nav-desktop) {
+				outline: 1px solid var(--color-red);
+				outline-offset: 0;
+			}
+		}
 	}
 	&__sub-list {
 
@@ -192,7 +214,7 @@
 			}
 		}		
 	}
-	&__sub-link {
+	&__sub-link { /* <a> */
 		display: inline-block;
 		padding: var(--size-040) var(--size-090);
 		color: var(--color-slate);
@@ -207,9 +229,26 @@
 			color: var(--color-pink);
 			padding: var(--size-030) var(--size-090);
 		}
+
+		&:focus {
+			outline: 0;
+		}		
+		&:hover, &:focus-visible {
+			outline: 2px solid var(--color-slate);
+			outline-offset: -2px;
+			border-color: var(--color-slate);
+
+			@media screen and (min-width: $nav-desktop) {
+				border-color: var(--color-pink);
+				outline: 1px solid var(--color-pink);
+				outline-offset: 0;
+				position: relative;
+				z-index: 1;
+			}
+		}
+
 	}
 }
-
 .site-nav-toggle {
 	position: relative;
 
@@ -231,7 +270,8 @@
 		}
 	}
 
-	&:before { /* horizontal line */
+	/* horizontal line */
+	&:before { 
 		content: "";
 		display: block;
 		height: 1.5px;
