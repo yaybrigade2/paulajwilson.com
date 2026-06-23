@@ -13,14 +13,7 @@
  *
  * ANCHOR Global
 ------------------------------------------------*/
-:root {
-	--nav-toggle-height: var(--size-600);
-	--site-border-width: #{$site-border-width-1};
 
-	@media screen and (min-width: $small) {
-		--site-border-width: #{$site-border-width-2};
-	}	
-}
 .page-home {
 	background-color: var(--color-red);
 }
@@ -53,67 +46,12 @@
 }
 
 .site-nav {
-	padding: var(--size-100);
-	margin-top: calc(-1 * var(--nav-toggle-height) / 2);
-	transition: background-color 0.1s ease-in-out;
-	font-family: var(--font-serif);
-	text-transform: uppercase;
-	
-	&__inner {
-		display: grid;
-		grid-template-rows: 0fr;
-		transition: grid-template-rows 0.3s ease-in-out, padding-top 0.3s ease-in-out;
 
-		.route-change-in-progress & {
-			transition: none;
-		}
-
-		& > ul { /* grid child */
-			overflow: hidden;
-		}
-	}
-	&--open {
-		background-color: var(--color-pink);
-		transition: background-color 0.2s ease-in-out 0.1s;
-
-		.site-nav__inner {
-			grid-template-rows: 1fr;
-
-			.page-secondary & {
-				padding-top: var(--size-100);
-			}
-		}
+	a {
+		text-decoration: none;
 	}
 
-	&__main-list {
-		.logo--nav-open & {
-			margin-bottom: var(--size-100);
-		}
-
-		& > li {
-			margin-bottom: var(--size-100);
-		}
-	}
-	&__main-link {
-		display: inline-block;
-		padding: var(--size-060) var(--size-090);
-		color: var(--color-red);
-		margin-bottom: var(--size-050);
-		background-color: var(--color-sand);
-	}
-	&__sub-link {
-		display: inline-block;
-		padding: var(--size-040) var(--size-090);
-		color: var(--color-slate);
-		font-style: italic;
-		margin-bottom: 2px;
-		background-color: var(--color-sand);
-	}
-}
-
-.logo {
-
-	&__name {
+	&__logo-name {
 		font-family: var(--font-home);
 		color: var(--color-pink);
 		text-transform: uppercase;
@@ -131,28 +69,144 @@
 		}
 		.page-secondary & {
 			font-size: var(--size-700);
-  			width: 3em; /* based on the width of the text "Wilson" for right alignment */	
-  			margin-left: auto;
+			width: 3em; /* based on the width of the text "Wilson" for right alignment */	
+			margin-left: auto;
 			position: relative;
 			z-index: 1;
 		}
 
-		&--paula {
-		
-		}
 		&--wilson {
 			position: relative;
 			top: -.1em;
 			transition: top 0.3s ease-in-out;
 			
-			.logo--nav-open & {
-				top: 0;
+			@media screen and (max-width: $nav-desktop) { // max-width!
+				
+				.site-nav--nav-open & {
+					top: 0;
+				}
+			}
+		}
+	}	
+	&__nav {
+		padding: var(--size-100);
+		margin-top: calc(-1 * var(--nav-toggle-button-height) / 2);
+		transition: background-color 0.1s ease-in-out;
+		font-family: var(--font-serif);
+		text-transform: uppercase;
+
+		@media screen and (min-width: $nav-desktop) {
+			position: relative;
+		}
+
+		@media screen and (max-width: $nav-desktop) { // max-width!
+
+			.site-nav--nav-open & {
+				background-color: var(--color-pink);
+				transition: background-color 0.2s ease-in-out 0.1s;
+			}
+		}
+	}
+	&__inner {
+		display: grid;
+		grid-template-rows: 0fr;
+		transition: grid-template-rows 0.3s ease-in-out, padding-top 0.3s ease-in-out;
+
+		@media screen and (max-width: $nav-desktop) { // max-width!
+
+			.site-nav--nav-open & {
+				grid-template-rows: 1fr;
+
+				.page-secondary & {
+					padding-top: var(--size-100);
+				}
+			}
+		}
+
+		.route-change-in-progress & {
+			transition: none;
+		}
+
+		& > * { /* grid child */
+			overflow: hidden;
+
+			@media screen and (min-width: $nav-desktop) {
+				overflow: visible;
 			}
 		}
 	}
 
-	a {
-		text-decoration: none;
+	&__main-list {
+
+		@media screen and (min-width: $nav-desktop) {
+			display: flex;
+			position: absolute;
+			top: .65em;
+			gap: clamp(.5em, 8vw, 1em);
+
+			@media screen and (min-width: $medium) {
+				gap: clamp(1em, 8vw, 4em);
+			}
+		}
+
+		@media screen and (max-width: $nav-desktop) { // max-width!
+
+			.site-nav--nav-open & {
+				margin-bottom: var(--size-100);
+			}
+		}
+
+		& > li {
+			margin-bottom: var(--size-100);
+		}
+	}
+	&__main-link {
+		display: inline-block;
+		padding: var(--size-060) var(--size-090);
+		color: var(--color-red);
+		margin-bottom: var(--size-050);
+		background-color: var(--color-sand);
+
+		@media screen and (min-width: $nav-desktop) {
+			padding: var(--size-030) var(--size-090);
+
+			&--active {
+				background-color: var(--color-red);
+				color: var(--color-sand);
+			}
+		}
+
+	}
+	&__sub-list {
+
+		@media screen and (min-width: $nav-desktop) {
+			display: none;
+			position: absolute;
+
+			&--open {
+				display: block;
+			}
+			
+			li {
+				line-height: 1;
+			}
+		}		
+	}
+	&__sub-link {
+		display: inline-block;
+		padding: var(--size-040) var(--size-090);
+		color: var(--color-slate);
+		font-style: italic;
+		margin-bottom: 2px;
+		background-color: var(--color-sand);
+		line-height: 1;
+
+		@media screen and (min-width: $nav-desktop) {
+			margin-bottom: -1px;
+			border: 1px solid var(--color-pink);
+			color: var(--color-pink);
+			padding: var(--size-030) var(--size-090);
+		}
 	}
 }
 
@@ -160,12 +214,21 @@
 	position: relative;
 
 	.page-secondary & {
-		margin-top: -1.25em;
+		margin-top: -1.1em;
 		margin-bottom: -3em;
 		transition: margin-bottom 0.3s ease-in-out;
+
+		@media screen and (min-width: $nav-desktop) {
+			margin-top: 0;
+			margin-bottom: -1.75em;
+		}
 	}
-	.page-secondary .logo--nav-open & {
-		margin-bottom: 0;
+
+	@media screen and (max-width: $nav-desktop) { // max-width!
+
+		.page-secondary .site-nav--nav-open & {
+			margin-bottom: 0;
+		}
 	}
 
 	&:before { /* horizontal line */
@@ -175,26 +238,36 @@
 		background-color: var(--color-pink);
 		position: absolute;
 		top: calc(50% - .75px);
-		left: calc(-1 * var(--site-border-width));
-		right: calc(-1 * var(--site-border-width));
 		transition: background-color 0.2s ease-in-out;
+		left: 0;
+		right: 0;
+		
+		.page-secondary & {
+			left: calc(-1 * var(--site-border-width));
+			right: calc(-1 * var(--site-border-width));
 
-		@media screen and (min-width: calc(#{$wrapper-max-width} + (2 * #{$site-border-width-2}))) {
-			left: calc(-1 * ( (100vw - var(--wrapper-max-width)) / 2));
-			right: calc(-1 * ( (100vw - var(--wrapper-max-width)) / 2));
+			@media screen and (min-width: calc(#{$wrapper-max-width} + (2 * #{$site-border-width-2}))) {
+				left: calc(-1 * ( (100vw - var(--wrapper-max-width)) / 2));
+				right: calc(-1 * ( (100vw - var(--wrapper-max-width)) / 2));
+			}			
 		}
+
 	}
 	
 	&__button {
 		aspect-ratio: 1/1;
-		height: var(--nav-toggle-height);
-		width: var(--nav-toggle-height);
+		height: var(--nav-toggle-button-height);
+		width: var(--nav-toggle-button-height);
 		border-radius: 50%;
 		display: grid;
 		place-items: center;
 		position: relative;
 		z-index: 1;
-		
+
+		@media screen and (min-width: $nav-desktop) {
+			display: none;
+		}
+	
 		.page-home & {
 			margin-inline: auto;
 			background-color: var(--color-sand);
@@ -217,7 +290,7 @@
 			}
 		}
 
-		&--nav-open {
+		.site-nav--nav-open & {
 
 			svg {
 				rotate: 90deg;

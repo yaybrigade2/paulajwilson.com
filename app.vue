@@ -102,17 +102,16 @@ const toggleSearch = () => {
 	<div class="page-wrapper">
 		<header class="site-header">
 
-			<div class="logo"
-				:class="{ 'logo--nav-open': showNav }"
+			<div class="site-nav"
+				:class="{ 'site-nav--nav-open': showNav }"
 			>
-				<span class="logo__name  logo__name--paula">
+				<span class="site-nav__logo-name  site-nav__logo-name--paula">
 					<NuxtLink to="/">
 						Paula
 					</NuxtLink>
 				</span>
 				<div class="site-nav-toggle">
 					<button class="site-nav-toggle__button"
-						:class="{ 'site-nav-toggle__button--nav-open': showNav }"
 						@click="showNav = !showNav"
 					>
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -121,14 +120,12 @@ const toggleSearch = () => {
 						</svg>
 					</button>
 				</div>
-				<nav class="site-nav"
-					:class="{ 'site-nav--open': showNav }"
-				>
+				<nav class="site-nav__nav">
 					<div class="site-nav__inner">
 						<Navigation />
 					</div>
 				</nav>
-				<span class="logo__name logo__name--wilson">
+				<span class="site-nav__logo-name  site-nav__logo-name--wilson">
 					<NuxtLink to="/">
 						Wilson
 					</NuxtLink>					

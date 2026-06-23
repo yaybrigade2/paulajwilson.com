@@ -1,9 +1,30 @@
+<script setup>
+
+const artOpen = ref(false);
+const paulasWorldOpen = ref(false);
+
+</script>
+
 <template>
 	<ul class="site-nav__main-list">
 		<li>
-			<NuxtLink to="/art" class="site-nav__main-link">Art</NuxtLink>
+			<NuxtLink to="/art" custom v-slot="{ href }">
+				<a
+					:href="href"
+					class="site-nav__main-link"
+					:class="{ 'site-nav__main-link--active': artOpen }"
+					:aria-expanded="String(artOpen)"
+					aria-controls="nav-sub-art"
+					@click.prevent="artOpen = !artOpen"
+				>Art</a>
+			</NuxtLink>
 
-			<ul class="site-nav__sub-list">
+			<ul
+				id="nav-sub-art"
+				class="site-nav__sub-list"
+				:class="{ 'site-nav__sub-list--open': artOpen }"
+				:aria-hidden="String(!artOpen)"
+			>
 				<li>
 					<NuxtLink to="/art" class="site-nav__sub-link">Introduction</NuxtLink>
 				</li>
@@ -28,9 +49,23 @@
 			<NuxtLink to="/current" class="site-nav__main-link">Current</NuxtLink>
 		</li>
 		<li>
-			<NuxtLink to="/paulas-world" class="site-nav__main-link">Paula's World</NuxtLink>
+			<NuxtLink to="/paulas-world" custom v-slot="{ href }">
+				<a
+					:href="href"
+					class="site-nav__main-link"
+					:class="{ 'site-nav__main-link--active': paulasWorldOpen }"
+					:aria-expanded="String(paulasWorldOpen)"
+					aria-controls="nav-sub-paulas-world"
+					@click.prevent="paulasWorldOpen = !paulasWorldOpen"
+				>Paula's World</a>
+			</NuxtLink>
 
-			<ul class="site-nav__sub-list">
+			<ul
+				id="nav-sub-paulas-world"
+				class="site-nav__sub-list"
+				:class="{ 'site-nav__sub-list--open': paulasWorldOpen }"
+				:aria-hidden="String(!paulasWorldOpen)"
+			>
 				<li>
 					<NuxtLink to="/paulas-world" class="site-nav__sub-link">Introduction</NuxtLink>
 				</li>

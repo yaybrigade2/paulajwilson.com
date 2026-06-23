@@ -88,7 +88,20 @@
  * ANCHOR Margins & Padding
 ------------------------------------------------*/
 :root {
-	
+	--site-border-width: #{$site-border-width-1};
+
+	@media screen and (min-width: $small) {
+		--site-border-width: #{$site-border-width-2};
+	}	
+}
+
+
+/*
+ *
+ * ANCHOR Nav
+------------------------------------------------*/
+:root {
+	--nav-toggle-button-height: var(--size-500);
 }
 
 
