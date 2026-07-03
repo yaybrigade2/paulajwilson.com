@@ -1,6 +1,4 @@
 <script setup>
-import { useDataStore } from '~/stores/dataStore';
-
 const route = useRoute();
 
 // ****
@@ -9,12 +7,28 @@ const showNav = ref(false);
 const searchOpen = ref(false);
 let routeChangeClassTimer;
 
+// Logo Animation
+const logoAnimations = new Map();
+const logoKeyframes = [
+	{ fontVariationSettings: '"STRS" 0, "wdth" 50, "wght" 100' },
+	{ fontVariationSettings: '"STRS" 50, "wdth" 50, "wght" 100' },
+	{ fontVariationSettings: '"STRS" 100, "wdth" 50, "wght" 900' }
+];
+const logoPaulaLetters = ['P', 'a', 'u', 'l', 'a'];
+const logoWilsonLetters = ['W', 'i', 'l', 's', 'o', 'n'];
+const cursorEl = ref(null);
+const isLogoCursorVisible = ref(false);
+const cursorStyle = ref({ left: '0px', top: '0px' });
+let mouseX = 0;
+let mouseY = 0;
+
 
 // ****
 // ANCHOR hide nav on route change
 watch(() => route.path, () => {
 	showNav.value = false;
 	searchOpen.value = false;
+	isLogoCursorVisible.value = false;
 
 	if (import.meta.client) {
 		document.body.classList.add('route-change-in-progress');
@@ -30,15 +44,51 @@ watch(() => route.path, () => {
 	}
 });
 
+
+// ****
+// ANCHOR cleanup on unmount
 onBeforeUnmount(() => {
 	if (routeChangeClassTimer) {
 		clearTimeout(routeChangeClassTimer);
 		routeChangeClassTimer = null;
 	}
 
+	logoAnimations.forEach((anim) => {
+		anim.cancel();
+	});
+
 	if (import.meta.client) {
-		document.body.classList.remove('route-change');
+		document.removeEventListener('mousemove', onDocumentMouseMove);
+		document.removeEventListener('scroll', updateCursorPosition);
+		document.body.classList.remove('route-change-in-progress');
 	}
+});
+
+
+// ****
+// ANCHOR Cursor follows pointer
+function updateCursorPosition() {
+	if (!import.meta.client || !cursorEl.value) {
+		return;
+	}
+
+	cursorStyle.value = {
+		left: `${mouseX + window.scrollX}px`,
+		top: `${mouseY + window.scrollY}px`
+	};
+}
+function onDocumentMouseMove(event) {
+	mouseX = event.clientX;
+	mouseY = event.clientY;
+	updateCursorPosition();
+}
+onMounted(() => {
+	if (!import.meta.client || !cursorEl.value) {
+		return;
+	}
+
+	document.addEventListener('mousemove', onDocumentMouseMove);
+	document.addEventListener('scroll', updateCursorPosition, { passive: true });
 });
 
 
@@ -55,12 +105,53 @@ const bodyPageClass = computed(() => {
 			.replace(/[^a-zA-Z0-9_-]/g, "")
 	);
 });
-
+// Add the page class to the body element
 useHead(() => ({
 	bodyAttrs: {
 		class: bodyPageClass.value,
 	},
 }));
+
+// ****
+// ANCHOR Logo animation on hover
+function onLogoLetterEnter(event) {
+	isLogoCursorVisible.value = true;
+
+	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+		return;
+	}
+
+	const span = event.currentTarget;
+	let anim = logoAnimations.get(span);
+
+	if (!anim) {
+		anim = span.animate(logoKeyframes, {
+			duration: 1000,
+			iterations: Infinity,
+			direction: 'alternate',
+			fill: 'both'
+		});
+		anim.currentTime = 500;
+		logoAnimations.set(span, anim);
+	} else {
+		anim.play();
+	}
+}
+function onLogoLetterLeave(event) {
+	isLogoCursorVisible.value = false;
+
+	const span = event.currentTarget;
+	const anim = logoAnimations.get(span);
+
+	if (anim) {
+		anim.pause();
+	}
+}
+
+// ****
+// ANCHOR Cursor for logo hover
+
+
 
 
 </script>
@@ -77,9 +168,14 @@ useHead(() => ({
 			<div class="site-nav"
 				:class="{ 'site-nav--nav-open': showNav }"
 			>
-				<span class="site-nav__logo-name  site-nav__logo-name--paula">
+				<span class="site-logo__name  site-logo__name--paula">
 					<NuxtLink to="/" tabindex="-1">
-						Paula
+						<span
+							v-for="(letter, index) in logoPaulaLetters"
+							:key="`paula-${index}`"
+							@mouseenter="onLogoLetterEnter"
+							@mouseleave="onLogoLetterLeave"
+						>{{ letter }}</span>
 					</NuxtLink>
 				</span>
 				<div class="site-nav-toggle">
@@ -102,9 +198,14 @@ useHead(() => ({
 				>
 					<Search v-model:search-open="searchOpen" />
 				</div>
-				<span class="site-nav__logo-name  site-nav__logo-name--wilson">
+				<span class="site-logo__name  site-logo__name--wilson">
 					<NuxtLink to="/">
-						Wilson
+						<span
+							v-for="(letter, index) in logoWilsonLetters"
+							:key="`wilson-${index}`"
+							@mouseenter="onLogoLetterEnter"
+							@mouseleave="onLogoLetterLeave"
+						>{{ letter }}</span>
 					</NuxtLink>					
 				</span>
 			</div>
@@ -119,6 +220,16 @@ useHead(() => ({
 		<footer class="site-footer">
 
 		</footer>
+
+		<div
+			ref="cursorEl"
+			class="cursor"
+			:class="{ 'cursor--visible': isLogoCursorVisible }"
+			:style="cursorStyle"
+			aria-hidden="true"
+		>
+			<img src="/images/mobile-logo-hover.png" alt="">
+		</div>
 
 	</div>
 </template>

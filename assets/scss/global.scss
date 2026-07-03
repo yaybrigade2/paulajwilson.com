@@ -11,10 +11,9 @@
 
 /* 
  *
- * ANCHOR Global
+ * ANCHOR Body
 ------------------------------------------------*/
-
-.page-home {
+.page-home { /* body */
 	background-color: var(--color-red);
 }
 .page-secondary { /* body */
@@ -34,6 +33,12 @@
 		z-index: -1;
 	}
 }
+
+
+/* 
+ *
+ * ANCHOR Wrapper
+------------------------------------------------*/
 .page-wrapper {
 
 	.page-secondary & {
@@ -44,13 +49,15 @@
 		max-width: var(--wrapper-max-width);
 	}
 }
-.site-nav {
 
-	a {
-		text-decoration: none;
-	}
 
-	&__logo-name {
+/* 
+ *
+ * ANCHOR Logo
+------------------------------------------------*/
+.site-logo {
+
+	&__name {
 		font-family: var(--font-home);
 		color: var(--color-pink);
 		text-transform: uppercase;
@@ -97,7 +104,70 @@
 				outline-offset: 3px;
 			}
 		}
+
+		span {
+			transition: color 2s ease;
+
+			&:hover {
+				color: var(--color-sand);
+				transition: color .3s ease;		
+				cursor: none;
+			}
+		}		
 	}	
+}
+
+
+/* 
+ *
+ * ANCHOR Logo Cursor Animation
+------------------------------------------------*/
+.cursor {
+	position: absolute;
+	z-index: 1000;
+	width: 60px;
+	user-select: none;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity .2s ease;
+	transform: translate(-50%, -50%);
+	will-change: left, top;
+	animation: flutter 1s ease-in-out infinite paused;
+
+	.page-secondary & {
+		width: 40px;
+	}
+
+	&.cursor--visible {
+		opacity: 1;
+		animation-play-state: running;
+	}
+	
+	@keyframes flutter {
+		0% {
+			transform: translateY(0) translateX(0) translate3d(0, 0, 0) rotateZ(0deg);
+		}
+		50% {
+			transform: translateY(-20px) translateX(10px) translate3d(10px, 0, 0) rotateZ(180deg);
+		}
+		100% {
+			transform: translateY(0) translateX(0) translate3d(0, 0, 0) rotateZ(360deg);
+		}
+	}
+}
+
+
+/* 
+ *
+ * ANCHOR Navigation
+------------------------------------------------*/
+.site-nav {
+
+	a {
+		text-decoration: none;
+	}
+
+
 	&__nav {
 		padding: var(--size-100);
 		margin-top: calc(-1 * var(--nav-toggle-button-height) / 2);
@@ -384,6 +454,12 @@
 		}
 	}	
 }
+
+
+/* 
+ *
+ * ANCHOR Search
+------------------------------------------------*/
 .site-search {
 	background-color: var(--color-pink);
 	padding: var(--size-100);
