@@ -130,22 +130,26 @@
 .cursor {
 	position: absolute;
 	z-index: 1000;
-	width: 60px;
+	width: 0;
 	user-select: none;
 	pointer-events: none;
 	opacity: 0;
-	transition: opacity .2s ease;
-	transform: translate(-50%, -50%);
+	transition: opacity .3s ease, width 0s ease .3s;
+	translate: -50%;
 	will-change: left, top;
 	animation: flutter 1s ease-in-out infinite paused;
 
-	.page-secondary & {
-		width: 40px;
-	}
-
 	&.cursor--visible {
 		opacity: 1;
+		transition: opacity .3s ease, width 0s ease 0s;
 		animation-play-state: running;
+
+		.page-home & {
+			width: 60px;
+		}
+		.page-secondary & {
+			width: 40px;
+		}
 	}
 	
 	@keyframes flutter {
@@ -153,7 +157,7 @@
 			transform: translateY(0) translateX(0) translate3d(0, 0, 0) rotateZ(0deg);
 		}
 		50% {
-			transform: translateY(-20px) translateX(10px) translate3d(10px, 0, 0) rotateZ(180deg);
+			transform: translateY(-20px) translateX(10px) translate3d(10px, 0, 0) rotateZ(180deg);			
 		}
 		100% {
 			transform: translateY(0) translateX(0) translate3d(0, 0, 0) rotateZ(360deg);
