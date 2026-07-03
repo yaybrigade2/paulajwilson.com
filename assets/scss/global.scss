@@ -70,6 +70,8 @@
 			font-size: clamp(1em, 40vw, 25em);
 			max-width: var(--wrapper-max-width);		
 			margin-inline: auto;
+			line-height: .8;
+			overflow: hidden;
 
 			a {
 				cursor: default; /* disable link hover on homepage */
@@ -82,13 +84,26 @@
 			position: relative;
 			z-index: 20;
 		}
+		&--paula {
 
+			.page-home & {
+				@media screen and (max-width: $nav-desktop) { // max-width!
+					margin-bottom: .5rem;
+				}
+				@media screen and (min-width: $nav-desktop) {
+					margin-bottom: 2rem;
+				}
+			}
+		}
 		&--wilson {
 			position: relative;
-			top: -.1em;
 			transition: top 0.3s ease-in-out;
 			
+			.page-secondary & {
+				top: -.1em;
+			}
 			@media screen and (max-width: $nav-desktop) { // max-width!
+				top: -.1em;
 
 				.site-nav--nav-open & {
 					top: 0;
