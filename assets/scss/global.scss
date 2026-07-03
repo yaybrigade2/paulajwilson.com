@@ -58,16 +58,18 @@
 .site-logo {
 
 	&__name {
-		font-family: var(--font-home);
-		color: var(--color-pink);
-		text-transform: uppercase;
-		padding: 0 var(--size-100);
-		font-variation-settings: "STRS" 50, "wdth" 50, "wght" 100;
-		line-height: 1;
 		display: block;
+		padding-inline: var(--size-100);
+		font-family: var(--font-home);
+		line-height: 1;
+		text-transform: uppercase;
+		color: var(--color-pink);
+		font-variation-settings: "STRS" 50, "wdth" 50, "wght" 100;
 		
 		.page-home & {
-			font-size: 40vw;
+			font-size: clamp(1em, 40vw, 25em);
+			max-width: var(--wrapper-max-width);		
+			margin-inline: auto;
 
 			a {
 				cursor: default; /* disable link hover on homepage */
@@ -109,9 +111,12 @@
 			transition: color 2s ease;
 
 			&:hover {
-				color: var(--color-sand);
 				transition: color .3s ease;		
 				cursor: none;
+				
+				.page-home & {
+					color: var(--color-sand);
+				}
 			}
 		}		
 	}	
@@ -167,9 +172,8 @@
 		text-decoration: none;
 	}
 
-
 	&__nav {
-		padding: var(--size-100);
+		padding-block: var(--size-100);
 		margin-top: calc(-1 * var(--nav-toggle-button-height) / 2);
 		transition: background-color 0.1s ease-in-out;
 		font-family: var(--font-serif);
@@ -217,18 +221,10 @@
 		}
 	}
 	&__main-list {
-
+		
 		@media screen and (min-width: $nav-desktop) {
-			display: flex;
 			position: absolute;
-			gap: clamp(.5em, 8vw, 1em);
-
-			@media screen and (min-width: $medium) {
-				gap: clamp(1em, 8vw, 2em);
-			}
-			@media screen and (min-width: $large) {
-				gap: clamp(1em, 8vw, 4em);
-			}
+			width: 100%;
 
 			.page-home & {
 				top: 0;
@@ -236,17 +232,38 @@
 			.page-secondary & {
 				top: .65em;
 			}
-		}
+		}			
+			
+		& > ul {
+			padding-inline: var(--size-100);				
 
-		@media screen and (max-width: $nav-desktop) { // max-width!
+			@media screen and (min-width: $nav-desktop) {
+				display: flex;
+				gap: clamp(.5em, 8vw, 1em);
+				max-width: var(--wrapper-max-width);
+				margin-inline: auto;
 
-			.site-nav--nav-open & {
+				.page-home & {
+					padding-left: var(--size-600);
+				}
+			}
+			@media screen and (min-width: $medium) {
+				gap: clamp(1em, 8vw, 2em);
+			}
+			@media screen and (min-width: $large) {
+				gap: clamp(1em, 8vw, 4em);
+			}
+			@media screen and (max-width: $nav-desktop) { // max-width!
+
+				.site-nav--nav-open & {
+					margin-bottom: var(--size-100);
+				}
+			}
+
+
+			& > li {
 				margin-bottom: var(--size-100);
 			}
-		}
-
-		& > li {
-			margin-bottom: var(--size-100);
 		}
 	}
 	&__main-link { /* <a> */
