@@ -1,4 +1,12 @@
 <script setup>
+const props = defineProps({
+	searchOpen: {
+		type: Boolean,
+		default: false,
+	},
+});
+
+const emit = defineEmits(['update:searchOpen']);
 
 const route = useRoute();
 
@@ -140,5 +148,17 @@ watch(paulasWorldOpen, (newVal) => {
 				</li>
 			</ul>
 		</li>
+		<li>
+			<button class="site-nav__main-link  site-nav__main-link--search"
+				:class="{ 'site-nav__main-link--active': isActive('search') || props.searchOpen }"
+				@click="emit('update:searchOpen', !props.searchOpen)"
+			>
+				<span class="screen-reader-text">Search</span>
+				<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M13.643 13.67L16.723 16.75M15.75 8.25C15.75 10.2391 14.9598 12.1468 13.5533 13.5533C12.1468 14.9598 10.2391 15.75 8.25 15.75C6.26088 15.75 4.35322 14.9598 2.9467 13.5533C1.54018 12.1468 0.75 10.2391 0.75 8.25C0.75 6.26088 1.54018 4.35322 2.9467 2.9467C4.35322 1.54018 6.26088 0.75 8.25 0.75C10.2391 0.75 12.1468 1.54018 13.5533 2.9467C14.9598 4.35322 15.75 6.26088 15.75 8.25Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+			</button>
+		</li>
+		
 	</ul>
 </template>

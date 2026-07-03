@@ -6,6 +6,7 @@ const route = useRoute();
 // ****
 // ANCHOR Page Variables
 const showNav = ref(false);
+const searchOpen = ref(false);
 let routeChangeClassTimer;
 
 
@@ -13,6 +14,7 @@ let routeChangeClassTimer;
 // ANCHOR hide nav on route change
 watch(() => route.path, () => {
 	showNav.value = false;
+	searchOpen.value = false;
 
 	if (import.meta.client) {
 		document.body.classList.add('route-change-in-progress');
@@ -61,36 +63,6 @@ useHead(() => ({
 }));
 
 
-// ****
-// ANCHOR doSearch 
-const doSearch = () => {
-
-	// unfocus search field using ref
-	nextTick(() => {
-		searchInput.value.blur();
-	})
-
-	if (searchTerm.value) {
-		navigateTo({ 
-			path: '/search/' + searchTerm.value,
-		})
-	}
-}
-
-
-// ****
-// ANCHOR toggleSearch 
-const toggleSearch = () => {
-	showSearch.value = !showSearch.value;
-
-	if (showSearch.value) {
-		// focus search input
-		nextTick(() => {
-			searchInput.value.focus();  // searchInput is a ref on the input element in the template
-		})
-	}
-}
-
 </script>
 
 <style lang="scss">
@@ -122,9 +94,14 @@ const toggleSearch = () => {
 				</div>
 				<nav class="site-nav__nav">
 					<div class="site-nav__inner">
-						<Navigation />
+						<Navigation v-model:search-open="searchOpen" />
 					</div>
 				</nav>
+				<div class="site-search"
+					:class="{ 'site-search--open': searchOpen }"
+				>
+					<Search v-model:search-open="searchOpen" />
+				</div>
 				<span class="site-nav__logo-name  site-nav__logo-name--wilson">
 					<NuxtLink to="/">
 						Wilson
