@@ -170,7 +170,10 @@ onMounted(() => {
 			<div class="site-nav"
 				:class="{ 'site-nav--nav-open': showNav }"
 			>
-				<span class="site-logo__name  site-logo__name--paula">
+				<div class="site-nav__hand">
+					<img src="/images/hand-down.png" alt="Hand pointing" />
+				</div>
+				<div class="site-logo__name  site-logo__name--paula">
 					<NuxtLink to="/" tabindex="-1">
 						<span
 							v-for="(letter, index) in logoPaulaLetters"
@@ -179,7 +182,7 @@ onMounted(() => {
 							@mouseleave="onLogoLetterLeave"
 						>{{ letter }}</span>
 					</NuxtLink>
-				</span>
+				</div>
 				<div class="site-nav-toggle">
 					<button class="site-nav-toggle__button"
 						@click="showNav = !showNav"
@@ -200,7 +203,7 @@ onMounted(() => {
 				>
 					<Search v-model:search-open="searchOpen" />
 				</div>
-				<span class="site-logo__name  site-logo__name--wilson">
+				<div class="site-logo__name  site-logo__name--wilson">
 					<NuxtLink to="/">
 						<span
 							v-for="(letter, index) in logoWilsonLetters"
@@ -209,7 +212,7 @@ onMounted(() => {
 							@mouseleave="onLogoLetterLeave"
 						>{{ letter }}</span>
 					</NuxtLink>					
-				</span>
+				</div>
 			</div>
 
 		</header>

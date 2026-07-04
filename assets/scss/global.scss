@@ -67,11 +67,15 @@
 		font-variation-settings: "STRS" 50, "wdth" 50, "wght" 100;
 		
 		.page-home & {
-			font-size: clamp(1em, 40vw, 25em);
+			font-size: clamp(1em, 41vw, 25em);
 			max-width: var(--wrapper-max-width);		
 			margin-inline: auto;
 			line-height: .8;
 			overflow: hidden;
+
+			@media screen and (min-width: $medium) {
+				font-size: clamp(1em, 42vw, 25em);
+			}
 
 			a {
 				cursor: default; /* disable link hover on homepage */
@@ -191,6 +195,30 @@
 		text-decoration: none;
 	}
 
+	&__hand {
+		display: none;
+
+		.page-home & {
+			display: block;
+			position: relative;
+			max-width: var(--wrapper-max-width);
+			margin-inline: auto;
+
+			img {
+				width: var(--size-700);
+				height: auto;
+				position: absolute;
+				top: -1em;
+				right: var(--size-300);
+				rotate: 20deg;
+
+				&:hover {
+					translate: 0 -.25em;
+					padding-bottom: .25em;
+				}
+			}
+		}
+	}
 	&__nav {
 		padding-block: var(--size-100);
 		margin-top: calc(-1 * var(--nav-toggle-button-height) / 2);
@@ -392,6 +420,9 @@
 		&:focus {
 			outline: 0;
 		}		
+		&:hover {
+			color: var(--color-red);
+		}
 		&:hover, &:focus-visible {
 			outline: 2px solid var(--color-slate);
 			outline-offset: -2px;
