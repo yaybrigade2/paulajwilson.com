@@ -506,7 +506,15 @@
 .site-search {
 	background-color: var(--color-pink);
 	padding: var(--size-100);
-	margin-top: var(--size-300);
+	margin-top: var(--size-020);
+	position: relative;
+
+	@media screen and (min-width: $x-small) {
+		padding: var(--size-100) var(--size-800) var(--size-100) var(--size-100);
+	}
+	@media screen and (min-width: $nav-desktop) {
+		margin-top: var(--size-300);
+	}
 
 	display: none;
 
@@ -589,6 +597,31 @@
 			color: var(--color-pink-dark);
 			width: 100%;
 			height: auto;
+		}
+	}
+	&__hand {
+		width: var(--size-800);
+		height: auto;
+		position: absolute;
+		right: calc(-1 * var(--size-800));
+		pointer-events: none;
+		display: none;
+
+		@media screen and (min-width: $x-small) {
+			display: block;
+		}
+
+		.site-search--open & {
+			animation: slideInFromRight 0.35s ease-in-out forwards;	
+			right: 0;
+		}
+		@keyframes slideInFromRight {
+			0% {
+				transform: translateX(100%);
+			}
+			100% {
+				transform: translateX(0);
+			}
 		}
 	}
 }
