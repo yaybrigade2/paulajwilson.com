@@ -328,6 +328,13 @@
 
 		.page-home & {
 
+			&:hover {
+
+				@media screen and (min-width: $nav-desktop) {
+					outline: 2px solid var(--color-pink);
+					outline-offset: 0;
+				}
+			}
 			&:focus-visible {
 				outline: 2px solid var(--color-red);
 				outline-offset: -2px;

@@ -44,6 +44,14 @@ watch(() => route.path, () => {
 	}
 });
 
+// ****
+// ANCHOR hide search when nav is closed
+watch(showNav, (isOpen) => {
+	if (!isOpen) {
+		searchOpen.value = false;
+	}
+});
+
 
 // ****
 // ANCHOR cleanup on unmount
@@ -62,33 +70,6 @@ onBeforeUnmount(() => {
 		document.removeEventListener('scroll', updateCursorPosition);
 		document.body.classList.remove('route-change-in-progress');
 	}
-});
-
-
-// ****
-// ANCHOR Cursor follows pointer
-function updateCursorPosition() {
-	if (!import.meta.client || !cursorEl.value) {
-		return;
-	}
-
-	cursorStyle.value = {
-		left: `${mouseX + window.scrollX}px`,
-		top: `${mouseY + window.scrollY}px`
-	};
-}
-function onDocumentMouseMove(event) {
-	mouseX = event.clientX;
-	mouseY = event.clientY;
-	updateCursorPosition();
-}
-onMounted(() => {
-	if (!import.meta.client || !cursorEl.value) {
-		return;
-	}
-
-	document.addEventListener('mousemove', onDocumentMouseMove);
-	document.addEventListener('scroll', updateCursorPosition, { passive: true });
 });
 
 
@@ -150,8 +131,29 @@ function onLogoLetterLeave(event) {
 
 // ****
 // ANCHOR Cursor for logo hover
+function updateCursorPosition() {
+	if (!import.meta.client || !cursorEl.value) {
+		return;
+	}
 
+	cursorStyle.value = {
+		left: `${mouseX + window.scrollX}px`,
+		top: `${mouseY + window.scrollY}px`
+	};
+}
+function onDocumentMouseMove(event) {
+	mouseX = event.clientX;
+	mouseY = event.clientY;
+	updateCursorPosition();
+}
+onMounted(() => {
+	if (!import.meta.client || !cursorEl.value) {
+		return;
+	}
 
+	document.addEventListener('mousemove', onDocumentMouseMove);
+	document.addEventListener('scroll', updateCursorPosition, { passive: true });
+});
 
 
 </script>
