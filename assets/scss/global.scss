@@ -13,6 +13,9 @@
  *
  * ANCHOR Body
 ------------------------------------------------*/
+body {
+	color: var(--color-slate);
+}
 .page-home { /* body */
 	background-color: var(--color-red);
 }
@@ -660,7 +663,7 @@
 
 
 .module {
-	margin-block: var(--size-200);
+	margin-block: var(--module-spacing);
 
 	&__grid {
 		display: grid;
@@ -676,7 +679,7 @@
 
 /* 
  *
- * ANCHOR Module: Images
+ * ANCHOR Content Module: Images
 ------------------------------------------------*/
 .images {
 
@@ -708,6 +711,9 @@
 		figcaption {
 			display: block;
 			margin-top: var(--size-050);
+			font-family: var(--font-family-mono);
+			font-size: var(--size-080);
+			max-width: 70ch;
 		}
 
 		.images--offset & {

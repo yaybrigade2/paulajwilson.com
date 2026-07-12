@@ -91,6 +91,7 @@
 :root {
 	--site-border-width: #{$site-border-width-1};
 	--site-outer-margin: var(--size-100);
+	--module-spacing: var(--size-500);
 
 	@media screen and (min-width: $small) {
 		--site-border-width: #{$site-border-width-2};

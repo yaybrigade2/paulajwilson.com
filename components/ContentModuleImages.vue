@@ -18,7 +18,7 @@ if (props.content.offset) {
 	displayClass.value += ' images--offset-'
 }
 
-// Cloudinary Params
+// ANCHOR Cloudinary Params
 cloudinaryParams.value = 'f_auto,c_limit,w_2000'
 
 if (props.content.width === 'two-thirds') {
@@ -28,7 +28,7 @@ if (props.content.width === 'half') {
 	cloudinaryParams.value = 'f_auto,c_limit,w_1000'
 }
 
-// Multiple images
+// ANCHOR Multiple images
 if (props.content.images?.length > 1) {
 	// displayClass.value += ' images--count-' + props.content.images.length
 
@@ -41,6 +41,71 @@ if (props.content.images?.length > 1) {
 		cloudinaryParams.value = 'f_auto,c_limit,w_500'
 	}
 }
+
+// ANCHOR Caption Link
+
+const router = useRouter()
+
+const internalLinkPath = (img) => {
+	const postType = img?.internal_link?.[0]?.post_type
+	const postName = img?.internal_link?.[0]?.post_name
+
+	if (!postType || !postName) {
+		return ''
+	}
+
+	if (postType === 'page') {
+		return '/' + postName
+	}
+
+	return '/' + postType + '/' + postName
+}
+
+const escapeRegExp = (value) => {
+	return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+const captionWithInternalLink = (img) => {
+	const caption = img?.caption || ''
+	const path = internalLinkPath(img)
+	const findInCaptionAndMakeLink = img?.link_text_in_caption
+
+	console.log(findInCaptionAndMakeLink)
+
+	if (!caption) {
+		return ''
+	}
+
+	if (!path || !findInCaptionAndMakeLink || !caption.includes(findInCaptionAndMakeLink)) {
+		return caption
+	}
+
+	const findTokenRegex = new RegExp(escapeRegExp(findInCaptionAndMakeLink), 'g')
+	const replacement = '<a href="' + path + '">' + findInCaptionAndMakeLink + '</a>'
+
+	return caption.replace(findTokenRegex, replacement)
+}
+
+const onCaptionClick = (event) => {
+	const anchor = event.target?.closest?.('a')
+
+	if (!anchor) {
+		return
+	}
+
+	const href = anchor.getAttribute('href')
+	if (!href || !href.startsWith('/')) {
+		return
+	}
+
+	if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) {
+		return
+	}
+
+	event.preventDefault()
+	router.push(href)
+}
+
 </script>
 
 <template>
@@ -52,7 +117,7 @@ if (props.content.images?.length > 1) {
 						:src="cloudinaryPath(img.image.url, cloudinaryParams + '/')" 
 						:alt="img.image.alt"
 					/>
-					<figcaption v-if="img.caption" v-html="img.caption"></figcaption>
+					<figcaption v-if="img.caption" @click="onCaptionClick" v-html="captionWithInternalLink(img)"></figcaption>
 				</figure>
 			</div>
 		</div>

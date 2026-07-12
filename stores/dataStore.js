@@ -77,8 +77,8 @@ export const useDataStore = defineStore('datastore', () => {
 				const { data } = await useFetch(
 					fetchURLprefix + 'page/' + id
 				);
-				console.log(fetchURLprefix + 'page/' + id);
-				console.log(data);
+				// console.log(fetchURLprefix + 'page/' + id);
+				// console.log(data);
 
 				page.value[id].isLoading = false
 
