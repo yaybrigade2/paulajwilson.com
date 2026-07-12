@@ -680,13 +680,26 @@
 ------------------------------------------------*/
 .images {
 
-	--images-gap: var(--size-100);
+	--images-gap: var(--size-070);
+
+	@media screen and (min-width: $medium) {
+		--images-gap: var(--size-100);
+	}
+	@media screen and (min-width: $large) {
+		--images-gap: var(--size-200);
+	}
+
 
 	&__wrapper {
 		grid-column: 1 / -1;
 
 		@media screen and (min-width: $x-small) {
 			grid-column: 2 / -2;
+		}
+		@media screen and (min-width: $small) {
+			/* multiple images in a row on larger screens */
+			display: flex;
+			gap: var(--images-gap);			
 		}
 
 	}
@@ -695,6 +708,19 @@
 		figcaption {
 			display: block;
 			margin-top: var(--size-050);
+		}
+
+		.images--offset & {
+
+			@media screen and (min-width: $small) {
+
+				&:nth-child(2) {
+					margin-top: 20vh;
+				}
+				&:nth-child(3) {
+					margin-top: 40vh;
+				}
+			}
 		}
 	}
 
@@ -721,17 +747,36 @@
 				max-height: 110vh; /* TODO: reconsider, but probably good for the image not to blow out on giant screens */
 				object-fit: cover;
 			}
-			figcaption {
-				// counteract the bleed margins
-				margin-inline: var(--site-outer-margin);
+			figure {
+				width: 100%; /* because of flexbox on .images__wrapper */
+			}
+			// counteract the bleed margins
+			&:first-child {
 
-				@media screen and (min-width: calc(#{$wrapper-max-width} + (2 * #{$site-border-width-2}))) {
-					margin-inline: calc((100vw - var(--wrapper-max-width)) / 2 + var(--site-outer-margin));
-				}	
-				@media screen and (min-width: #{$bleed-max-width}) {
-					margin-inline: calc((#{$bleed-max-width} - var(--wrapper-max-width)) / 2 + var(--site-outer-margin));
+				figcaption {
+					margin-left: var(--site-outer-margin);
+	
+					@media screen and (min-width: calc(#{$wrapper-max-width} + (2 * #{$site-border-width-2}))) {
+						margin-left: calc((100vw - var(--wrapper-max-width)) / 2 + var(--site-outer-margin));
+					}	
+					@media screen and (min-width: #{$bleed-max-width}) {
+						margin-left: calc((#{$bleed-max-width} - var(--wrapper-max-width)) / 2 + var(--site-outer-margin));
 					}
 				}
+			}
+			&:last-child {
+
+				figcaption {
+					margin-right: var(--site-outer-margin);
+	
+					@media screen and (min-width: calc(#{$wrapper-max-width} + (2 * #{$site-border-width-2}))) {
+						margin-right: calc((100vw - var(--wrapper-max-width)) / 2 + var(--site-outer-margin));
+					}	
+					@media screen and (min-width: #{$bleed-max-width}) {
+						margin-right: calc((#{$bleed-max-width} - var(--wrapper-max-width)) / 2 + var(--site-outer-margin));
+					}
+				}
+			}
 		}
 	}
 	&--width-touch-border {
@@ -742,8 +787,18 @@
 		}
 		.images__image {
 
-			figcaption {
-				margin-inline: var(--site-outer-margin);
+			// counteract the bleed margins
+			&:first-child {
+
+				figcaption {
+					margin-left: var(--site-outer-margin);
+				}
+			}
+			&:last-child {
+
+				figcaption {
+					margin-right: var(--site-outer-margin);
+				}
 			}
 		}
 	}
