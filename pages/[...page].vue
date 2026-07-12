@@ -49,7 +49,12 @@
 	<template v-if="page">
 		<!-- Generic Page -->
 
-		Page
+		<h1>{{ page.title }}</h1>
+
+		<ContentModules 
+			v-if="page.contentModules?.content_modules"
+			:content="page.contentModules.content_modules" 
+		/>
 
 	</template>
 	<div v-if="isLoading">Loading...</div>

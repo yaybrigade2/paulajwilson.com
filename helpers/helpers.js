@@ -1,15 +1,12 @@
-import { useGlobalsStore } from '~/stores/globalsStore'
-
 // ***
 // Function: cloudinaryPath
 export const cloudinaryPath = function (url, cloudinaryOptions) {
 
-	// Get global options
-	const globalsStore = useGlobalsStore();
-	const globals = computed(() => globalsStore.globals);
+	const cloudinaryPrefix = 'https://res.cloudinary.com/paulajwilson/image/fetch/'
+	const useCloudinary = true 
 
-	if (globals.value.useCloudinary) {
-		return globals.value.cloudinaryPrefix + cloudinaryOptions + url
+	if (useCloudinary) {
+		return cloudinaryPrefix + cloudinaryOptions + url
 	} else {
 		return url
 	}

@@ -696,14 +696,14 @@
 		@media screen and (min-width: $x-small) {
 			grid-column: 2 / -2;
 		}
-		@media screen and (min-width: $small) {
-			/* multiple images in a row on larger screens */
-			display: flex;
+		@media screen and (min-width: $small) {			
+			display: flex; /* automatically deal with multiple images in a row on larger screens */
 			gap: var(--images-gap);			
 		}
 
 	}
 	&__image {
+		width: 100%; /* because of flexbox on .images__wrapper */
 
 		figcaption {
 			display: block;
@@ -746,9 +746,6 @@
 			img {
 				max-height: 110vh; /* TODO: reconsider, but probably good for the image not to blow out on giant screens */
 				object-fit: cover;
-			}
-			figure {
-				width: 100%; /* because of flexbox on .images__wrapper */
 			}
 			// counteract the bleed margins
 			&:first-child {

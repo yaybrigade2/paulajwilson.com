@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 export const useDataStore = defineStore('datastore', () => {
 
 	// Fetch URL prefix
-	const fetchURLprefix = 'https://data.dibolldesigncenter.com/wp-json/diboll/v1/';
+	const fetchURLprefix = 'https://paulawilsondata.yaybrigade.xyz/wp-json/paulawilsondata/v1/';
 
 	// Search
 	const searchResults = ref([]);
@@ -59,7 +59,7 @@ export const useDataStore = defineStore('datastore', () => {
 	const fetchPage = async (id) => {
 
 		if (!id) {
-			id = 'candlewood-arts-festival' // slug for home page
+			id = 'paula-wilson' // slug for home page  // TODO: verify this is correct 
 		}
 
 		if (typeof page.value[id] === 'undefined' || page.value[id].data === null) {
@@ -77,7 +77,8 @@ export const useDataStore = defineStore('datastore', () => {
 				const { data } = await useFetch(
 					fetchURLprefix + 'page/' + id
 				);
-				// console.log(data);
+				console.log(fetchURLprefix + 'page/' + id);
+				console.log(data);
 
 				page.value[id].isLoading = false
 
