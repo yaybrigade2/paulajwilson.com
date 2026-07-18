@@ -15,7 +15,7 @@ displayClass.value += ' images--width-' + props.content.width
 displayClass.value += ' images--align-' + props.content.align
 
 if (props.content.offset) {
-	displayClass.value += ' images--offset-'
+	displayClass.value += ' images--offset'
 }
 
 // ANCHOR Cloudinary Params
