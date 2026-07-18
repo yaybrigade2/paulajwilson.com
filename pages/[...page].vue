@@ -26,21 +26,23 @@
 	const errorLoading = computed(() => dataStore.page[slug.value].errorLoading)
 	const noData = computed(() => dataStore.page[slug.value].noData)
 
-	// Set SEO
-	/*
+	// SEO title
 	const seoTitle = computed(() => {
-		if (page.value) {
-			return page.value.title + ' | Site Title'
+		if (slug.value === 'paulas-world') {
+			return "Paula's World: Introduction";
 		}
-		return 'Site Title';
+
+		return page.value?.title ?? 'Page Not Found';
 	})
+
+	
+	// Set SEO
 	useSeoMeta({
-		title: seoTitle,
-		ogTitle: seoTitle,
-		ogImage: '/images/og-image.png',		
-		twitterCard: 'summary',
+		title: () => seoTitle.value,
+		ogTitle: () => seoTitle.value,
+		// ogImage: '/images/og-image.png',		
+		// twitterCard: 'summary',
 	})
-		*/
 
 </script>
 
@@ -49,7 +51,9 @@
 	<template v-if="page">
 		<!-- Generic Page -->
 
-		<h1>{{ page.title }}</h1>
+		<div class="page-title">
+			<h1>{{ page.title }}</h1>
+		</div>
 
 		<ContentModules 
 			v-if="page.contentModules?.content_modules"

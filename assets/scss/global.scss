@@ -25,6 +25,7 @@ body {
 	// temp
 	min-height: 200vh;
 
+	/* Page (Border) Gradient */
 	&:before {
 		content: "";
 		position: absolute;
@@ -676,6 +677,47 @@ body {
 			var(--site-outer-margin)
 	}
 }
+
+
+/* 
+ *
+ * ANCHOR Page Title
+------------------------------------------------*/
+.secondary-page .site-main {
+	position: relative; /* for the page title line */
+}
+.page-title {
+	margin: var(--module-spacing) var(--site-outer-margin) var(--module-spacing);
+	
+	/* horizontal line */
+	&:after { 
+		content: "";
+		display: block;
+		border-top: 1.5px solid var(--color-pink-dark);
+		height: 3px;
+		border-bottom: 1.5px solid var(--color-pink-dark);
+		position: absolute;
+		left: calc(-1 * var(--site-border-width));
+		right: calc(-1 * var(--site-border-width));
+
+		@media screen and (min-width: calc(#{$wrapper-max-width} + (2 * #{$site-border-width-2}))) {
+			left: calc(-1 * ( (100vw - var(--wrapper-max-width)) / 2));
+			right: calc(-1 * ( (100vw - var(--wrapper-max-width)) / 2));
+		}
+	}
+
+	h1 {
+		font-family: var(--font-serif);
+		font-size: var(--size-400);
+		font-style: italic;
+		line-height: 1;
+		text-transform: uppercase;
+		color: var(--color-red);
+		padding-bottom: var(--size-020);
+	}
+}
+
+
 
 /* 
  *
