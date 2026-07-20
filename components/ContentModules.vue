@@ -33,6 +33,10 @@ defineProps({
 			v-if="'video' === c.acf_fc_layout"
 			:content="c"
 		/> -->
+		<ContentModuleQuote
+			v-if="'quote' === c.acf_fc_layout"
+			:content="c"
+		/>
 
 	</template>
 </template>

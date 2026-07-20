@@ -117,7 +117,7 @@ watch(paulasWorldOpen, (newVal) => {
 						:aria-expanded="String(paulasWorldOpen)"
 						aria-controls="nav-sub-paulas-world"
 						@click.prevent="paulasWorldOpen = !paulasWorldOpen"
-					>Paula's World</a>
+					>Paula’s World</a>
 				</NuxtLink>
 
 				<ul

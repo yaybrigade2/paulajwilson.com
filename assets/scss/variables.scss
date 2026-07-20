@@ -62,7 +62,7 @@
 	--font-home: "black-pack-vf", sans-serif;
 	--font-serif: "calvino", Georgia, serif;
 	--font-fancy: "fuuld", sans-serif;
-	--font-family-mono: "IBM Plex Mono", monospace;
+	--font-mono: "IBM Plex Mono", monospace;
 }
 
 
@@ -74,7 +74,7 @@
 	// colors
 	--color-slate: #4D4F60;
 	--color-sand: #EFD9CA;
-	--color-red: #DA3721;
+	--color-red: #D8382A;
 	--color-pink: #EC81BA;
 	--color-pink-dark: #DA6390;
 	--color-white: #FFFFFF;
@@ -91,14 +91,16 @@
 :root {
 	--site-border-width: #{$site-border-width-1};
 	--site-outer-margin: var(--size-100);
-	--module-spacing: var(--size-500);
-
+	--module-spacing: var(--size-600);
+	
 	@media screen and (min-width: $small) {
 		--site-border-width: #{$site-border-width-2};
 		--site-outer-margin: var(--size-200);
+		--module-spacing: var(--size-700);
 	}	
 	@media screen and (min-width: $medium) {
 		--site-outer-margin: var(--size-500);
+		--module-spacing: var(--size-800);
 	}
 }
 
