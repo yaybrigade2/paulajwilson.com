@@ -37,6 +37,10 @@ defineProps({
 			v-if="'quote' === c.acf_fc_layout"
 			:content="c"
 		/>
+		<ContentModuleDivider
+			v-if="'divider' === c.acf_fc_layout"
+			:content="c"
+		/>
 
 	</template>
 </template>

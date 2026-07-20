@@ -1015,3 +1015,37 @@ body {
 		color: var(--color-sand);
 	}
 }
+
+
+/* 
+ *
+ * ANCHOR Content Module: Divider
+------------------------------------------------*/
+.divider {
+
+	&--background-slate {
+		background-color: var(--color-slate);
+	}
+
+	&__space {
+		padding-block: var(--size-500);
+
+		.divider--space-large & {
+			padding-block: var(--size-900);
+		}
+	}
+
+	&::before, &::after {
+		content: "";
+		display: block;
+		width: 100%;
+		height: var(--size-500);
+		background-color: var(--color-sand);		
+	}
+	&::before {
+		border-radius: 0 0 var(--size-700) var(--size-700);
+	}
+	&::after {
+		border-radius: var(--size-700) var(--size-700) 0 0;
+	}
+}
